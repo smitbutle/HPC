@@ -15,7 +15,7 @@ int main() {
     double start_time = omp_get_wtime();
 
     // Perform vector-scalar addition using OpenMP
-    // #pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < SIZE; i++) {
         result[i] = vector[i] + scalar;
     }
