@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <omp.h>
 
-#define VECTOR_SIZE 200 
-#define CHUNK_SIZE 1
+#define VECTOR_SIZE 200
+#define CHUNK_SIZE 5
 
 void vector_addition(double *vec, double scalar) {
-    omp_set_schedule(omp_sched_static,CHUNK_SIZE);
+    omp_set_schedule(omp_sched_dynamic,CHUNK_SIZE);
     #pragma omp parallel for
     for (int i = 0; i < VECTOR_SIZE; ++i) {
         vec[i] += scalar;

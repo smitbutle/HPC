@@ -6,11 +6,9 @@
 
 void fill_rand(long a[], long size)
 {
-#pragma omp parallel for
+    #pragma omp parallel for
     for (long i = 0; i < size; i++)
-    {
         a[i] = rand() % 100;
-    }
 }
 
 void mergeAsc(long arr[], long left, long mid, long right)
@@ -31,24 +29,16 @@ void mergeAsc(long arr[], long left, long mid, long right)
     while (i < n1 && j < n2)
     {
         if (L[i] <= R[j])
-        {
             arr[k++] = L[i++];
-        }
         else
-        {
             arr[k++] = R[j++];
-        }
     }
 
     while (i < n1)
-    {
         arr[k++] = L[i++];
-    }
 
     while (j < n2)
-    {
         arr[k++] = R[j++];
-    }
 
     free(L);
     free(R);
@@ -62,9 +52,9 @@ void mergeSortAsc(long arr[], long left, long right)
 
         #pragma omp parallel sections
         {
-        #pragma omp section
+            #pragma omp section
             mergeSortAsc(arr, left, mid);
-        #pragma omp section
+            #pragma omp section
             mergeSortAsc(arr, mid + 1, right);
         }
 
@@ -90,24 +80,16 @@ void mergeDesc(long arr[], long left, long mid, long right)
     while (i < n1 && j < n2)
     {
         if (L[i] >= R[j])
-        {
             arr[k++] = L[i++];
-        }
         else
-        {
             arr[k++] = R[j++];
-        }
     }
 
     while (i < n1)
-    {
         arr[k++] = L[i++];
-    }
 
     while (j < n2)
-    {
         arr[k++] = R[j++];
-    }
 
     free(L);
     free(R);
@@ -119,11 +101,11 @@ void mergeSortDesc(long arr[], long left, long right)
     {
         long mid = left + (right - left) / 2;
 
-#pragma omp parallel sections
+        #pragma omp parallel sections
         {
-#pragma omp section
+            #pragma omp section
             mergeSortDesc(arr, left, mid);
-#pragma omp section
+            #pragma omp section
             mergeSortDesc(arr, mid + 1, right);
         }
 
@@ -141,18 +123,16 @@ int main()
 
     #pragma omp parallel sections
     {
-    #pragma omp section
+        #pragma omp section
         mergeSortAsc(vector1, 0, n - 1);
-    #pragma omp section
+        #pragma omp section
         mergeSortDesc(vector2, 0, n - 1);
     }
 
     long minProduct = 0;
     #pragma omp parallel for reduction(+ : minProduct)
     for (long i = 0; i < n; i++)
-    {
         minProduct += vector1[i] * vector2[i];
-    }
 
     printf("Dot product: %ld\n", minProduct);
 

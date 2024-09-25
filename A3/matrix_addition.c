@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
     // Initialize matrices A and B
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
-            A[i][j] = i + j; // Example values
-            B[i][j] = i - j; // Example values
+            A[i][j] = i + j;
+            B[i][j] = i - j;
         }
     }
 

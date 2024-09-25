@@ -15,21 +15,21 @@ int main()
 {
     int array[N];
 
-#pragma omp parallel sections
+    #pragma omp parallel sections
     {
-#pragma omp section
+        #pragma omp section
         {
             do_work(0, N / 2, array);
             printf("Section 1 completed\n");
         }
 
-#pragma omp section
+        #pragma omp section
         {
             do_work(N / 2, N, array);
             printf("Section 2 completed\n");
         }
 
-#pragma omp section
+        #pragma omp section
         {
             printf("No wait section\n");
         }
